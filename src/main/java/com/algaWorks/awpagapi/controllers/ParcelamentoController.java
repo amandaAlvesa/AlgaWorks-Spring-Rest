@@ -19,6 +19,7 @@ import com.algaWorks.awpagapi.exception.NegocioException;
 import com.algaWorks.awpagapi.repository.ParcelamentoRepository;
 import com.algaWorks.awpagapi.service.ParcelamentoService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -48,9 +49,9 @@ public class ParcelamentoController {
 //		return ResponseEntity.ok(parcelamento.get());
 	}
 	
-	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public Parcelamento criar(@RequestBody Parcelamento parcelamento) {
+    @ResponseStatus(HttpStatus.CREATED)
+	public Parcelamento criar(@Valid @RequestBody Parcelamento parcelamento) {
 		return service.salvar(parcelamento);
 	}
 	

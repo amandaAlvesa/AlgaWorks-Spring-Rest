@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 public class ParcelamentoService {
 
 	private final ParcelamentoRepository repository;
-	private final ClienteRepositorio clienteRepository;
+	private final CadastroClienteService clienteService;
 	
 	@Transactional
 	public Parcelamento salvar(Parcelamento parcelamento) {
@@ -26,12 +26,11 @@ public class ParcelamentoService {
 			throw new NegocioException("parcelamento a ser criado não deve possuir um código");
 		}
 		
-		Cliente cliente = clienteRepository.findById(parcelamento.getCliente().getId())
-				.orElseThrow(()-> new NegocioException("Cliente não encontrado"));
+		Cliente cliente = clienteService.buscar(parcelamento.getCliente().getId());
 		
 		parcelamento.setCliente(cliente);
-		
 		parcelamento.setDataCriacao(LocalDateTime.now());
+		
 		return repository.save(parcelamento);
 	}
 }
