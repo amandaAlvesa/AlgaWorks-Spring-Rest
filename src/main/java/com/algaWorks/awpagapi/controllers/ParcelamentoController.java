@@ -54,9 +54,4 @@ public class ParcelamentoController {
 	public Parcelamento criar(@Valid @RequestBody Parcelamento parcelamento) {
 		return service.salvar(parcelamento);
 	}
-	
-	@ExceptionHandler(NegocioException.class)
-	public ResponseEntity<String> capturar(NegocioException e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
-	}
 }
