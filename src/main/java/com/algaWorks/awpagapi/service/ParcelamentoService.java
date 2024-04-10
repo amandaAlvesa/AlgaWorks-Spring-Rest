@@ -1,6 +1,6 @@
 package com.algaWorks.awpagapi.service;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.algaWorks.awpagapi.entity.Cliente;
 import com.algaWorks.awpagapi.entity.Parcelamento;
 import com.algaWorks.awpagapi.exception.NegocioException;
-import com.algaWorks.awpagapi.repository.ClienteRepositorio;
 import com.algaWorks.awpagapi.repository.ParcelamentoRepository;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ public class ParcelamentoService {
 		Cliente cliente = clienteService.buscar(parcelamento.getCliente().getId());
 		
 		parcelamento.setCliente(cliente);
-		parcelamento.setDataCriacao(LocalDateTime.now());
+		parcelamento.setDataCriacao(OffsetDateTime.now());
 		
 		return repository.save(parcelamento);
 	}

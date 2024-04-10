@@ -2,6 +2,7 @@ package com.algaWorks.awpagapi.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import com.algaWorks.awpagapi.validation.ValidationGroups;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
@@ -51,5 +52,5 @@ public class Parcelamento {
 	@Max(12)
 	private Integer quantidadeParcelados;
 	
-	private LocalDateTime dataCriacao;
+	private OffsetDateTime dataCriacao;
 }
