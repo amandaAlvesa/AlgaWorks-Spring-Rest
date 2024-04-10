@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaWorks.awpagapi.entity.Parcelamento;
 import com.algaWorks.awpagapi.exception.NegocioException;
+import com.algaWorks.awpagapi.model.ParcelamentoModel;
 import com.algaWorks.awpagapi.repository.ParcelamentoRepository;
 import com.algaWorks.awpagapi.service.ParcelamentoService;
 
@@ -36,9 +37,19 @@ public class ParcelamentoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Parcelamento> buscar(@PathVariable Long id) {
+	public ResponseEntity<ParcelamentoModel> buscar(@PathVariable Long id) {
 
-		return repository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+		return repository.findById(id).map(parcelamento -> {
+			var parcelamentoModel = new ParcelamentoModel();
+			parcelamentoModel.setId(parcelamento.getId());
+			parcelamentoModel.setNomeCliente(parcelamento.getCliente().getNome());
+			parcelamentoModel.setDescricao(parcelamento.getDescricao());
+			parcelamentoModel.setParcelas(parcelamento.getQuantidadeParcelados());
+			parcelamentoModel.setValorTotal(parcelamento.getValorTotal());
+			parcelamentoModel.setDataCriacao(parcelamento.getDataCriacao());
+			
+			return ResponseEntity.ok(parcelamentoModel);
+		}).orElse(ResponseEntity.notFound().build());
 		
 //		Optional<Parcelamento> parcelamento = repository.findById(id);
 //		
